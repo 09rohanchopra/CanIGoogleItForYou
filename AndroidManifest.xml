@@ -18,6 +18,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.niner.cigifydona.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="stateVisible"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.niner.cigify.AboutMe"
+            android:name="com.niner.cigifydona.AboutMe"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:theme="@style/FullHeightDialog" >
