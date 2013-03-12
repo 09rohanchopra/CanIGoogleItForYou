@@ -34,10 +34,12 @@ public final class MainActivity extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);		//to prevent screen from going into landscape mode 
+																					//and hence preventing the activity from restarting
 		setContentView(R.layout.activity_main);
 		search = (Button) findViewById(R.id.bsearch);
 		share = (Button) findViewById(R.id.bshare);
@@ -63,7 +65,7 @@ public final class MainActivity extends Activity implements OnClickListener {
 		// startActivity(p);
 		// break;
 		case R.id.exit:
-			finish();
+			finish();			//if exit is selected from menu finish activity
 			break;
 		}
 		return false;
@@ -72,8 +74,8 @@ public final class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {		//check if android version >3.0
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()				//required for  generating bit.ly links
 					.permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 		}
@@ -82,19 +84,19 @@ public final class MainActivity extends Activity implements OnClickListener {
 		makelink();
 		if (!test.matches("")) {
 			switch (arg0.getId()) {
-			case R.id.bsearch:
+			case R.id.bsearch:					//do when search button pressed
 				flag = 0;
 				link.setText("http://lmgtfy.com/?q=" + linkf);
 				Url url = as("9ninernine", "R_6602cf608d079310ec6da8a0e2802e51")
 						.call(shorten("http://lmgtfy.com/?q=" + linkf));
 				linkf = url.getShortUrl();
 				shorten.setText(linkf);
-				if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+				if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {		//check if android version >3.0
 					android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 					android.content.ClipData clip = android.content.ClipData
 							.newPlainText("text label", shorten.getText());
-					clipboard.setPrimaryClip(clip);
-					Toast.makeText(getApplicationContext(),
+					clipboard.setPrimaryClip(clip);											//copy link to clipboard
+					Toast.makeText(getApplicationContext(), 		//show toast
 							"Link Copied To Clipboard", Toast.LENGTH_SHORT)
 							.show();
 				}
@@ -120,7 +122,7 @@ public final class MainActivity extends Activity implements OnClickListener {
 				shortu = linkf;
 				break;
 			case R.id.bshare:
-				Intent intent = new Intent();
+				Intent intent = new Intent();									//for the share button
 				intent.setAction(android.content.Intent.ACTION_SEND);
 				intent.setType("text/plain");
 				if (flag == 0) {
@@ -138,7 +140,7 @@ public final class MainActivity extends Activity implements OnClickListener {
 			Linkify.addLinks(shorten, Linkify.ALL);
 		} else {
 			Toast.makeText(getApplicationContext(),
-					"First enter a search query!", Toast.LENGTH_SHORT).show();
+					"First enter a search query!", Toast.LENGTH_SHORT).show();			//if no search term
 		}
 	}
 
@@ -153,7 +155,7 @@ public final class MainActivity extends Activity implements OnClickListener {
 	}
 
 	public final boolean onKeyDown(int keyCode) {
-		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {		//finish when back key pressed
 			finish();
 		}
 		return super.onKeyDown(keyCode, null);

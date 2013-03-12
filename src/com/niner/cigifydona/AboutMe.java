@@ -11,7 +11,7 @@ public final class AboutMe extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.aboutme);
-		Linkify.addLinks((TextView) findViewById(R.id.textView2), Linkify.EMAIL_ADDRESSES);
+		Linkify.addLinks((TextView) findViewById(R.id.textView2), Linkify.EMAIL_ADDRESSES);		//to make clicking the email id open mail client
 	}
 
 	@Override
